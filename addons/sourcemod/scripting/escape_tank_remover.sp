@@ -35,11 +35,11 @@ public void OnPluginStart()
 	HookEvent("finale_vehicle_ready", Event_FinaleVehicleIncoming, EventHookMode_PostNoCopy);
 }
 
-public void Event_RoundStart(Event hEvent, const char[] sEventName, bool bDontBroadcast) {
+public void Event_RoundStart(Event event, const char[] sEventName, bool bDontBroadcast) {
 	g_bFinaleVehicleIncoming = false;
 }
 
-void Event_FinaleVehicleIncoming(Event hEvent, const char[] sEventName, bool bDontBroadcast)
+void Event_FinaleVehicleIncoming(Event event, const char[] sEventName, bool bDontBroadcast)
 {
 	g_bFinaleVehicleIncoming = true;
 
@@ -57,7 +57,7 @@ void Event_FinaleVehicleIncoming(Event hEvent, const char[] sEventName, bool bDo
 	}
 }
 
-public Action L4D_OnSpawnTank(const float vector[3], const float qangle[3])
+public Action L4D_OnSpawnTank(const float vOrigin[3], const float vAngle[3])
 {
 	if (g_bFinaleVehicleIncoming) {
 		return Plugin_Handled;
@@ -66,7 +66,7 @@ public Action L4D_OnSpawnTank(const float vector[3], const float qangle[3])
 	return Plugin_Continue;
 }
 
-public Action L4D_OnTryOfferingTankBot(int tank_index, bool &enterStasis)
+public Action L4D_OnTryOfferingTankBot(int iTank, bool &bEnterStasis)
 {
 	if (g_bFinaleVehicleIncoming) {
 		return Plugin_Handled;
